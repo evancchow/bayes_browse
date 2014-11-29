@@ -10,29 +10,29 @@ function fetch() {
 /* Display a URL in the box. When you click it, it opens up the url in
     the same tab. */
 function display(URL) {
+    /* First, delete any existing links, with jQuery. */
+    $("a").remove();
+    
+    /* Create a box for the link with the URL as an attribute. */
     var urlBox = document.createElement('a');
-    urlBox.setAttribute("id", "linkie")
+    urlBox.setAttribute("id", "urlContainer")
     urlBox.setAttribute("href", URL);
     urlBox.innerHTML = "I\'m feeling lucky";
     document.body.appendChild(urlBox);
 
     /* Function to define what happens when you click the link.
-        Here, it opens it in the same tab. Note how a callback function
-        is needed for this to work. */
-    document.getElementById("linkie").onclick = function() {
+        Here, it opens it in the same tab. */
+    document.getElementById("urlContainer").onclick = function() {
         // Select the div. 
-        var urlBox = document.getElementById("linkie");
+        var urlBox = document.getElementById("urlContainer");
         if (urlBox["href"]) {
-            openURL(urlBox["href"]);
+            /* Update the current tab to have the desired url. */
+            /* First, get current tab. */
+            chrome.tabs.query({'active' : true}, function() {
+                /* Then, update its URL to the machine learning one. */
+                chrome.tabs.update({url : urlBox["href"]});
+            });
         }
-    }
-}
-
-/* A helper function to open a url in the same tab. */
-
-function openURL(url) {
-    if (url) {
-        chrome.tabs.create({url : url});
     }
 }
 
