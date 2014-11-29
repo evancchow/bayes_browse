@@ -2,9 +2,18 @@
 // http://scholar.google.com/scholar?start=00&q=machine+learning&hl=en
 // (see the parameters)
 
-/* Fetch a url to a machine learning paper from Google Scholar. */
-function fetch() {
-    
+/* Given the base url to a Google scholar query for X (say, machine learning),
+    scrape a random (weighted, later) URL and return it. */
+function scrape(scholarURL) {
+    /* Query the web page so you can scrape it. */
+    /* This is the first thing you need to return to. Either use
+        Google Scholar, or maybe even JSTOR. */
+
+    /* Count number of <a> elements on the page so you
+        can choose one at random. */
+    var numPapers = $('a').
+
+    return scholarURL;
 }
 
 /* Display a URL in the box. When you click it, it opens up the url in
@@ -12,7 +21,7 @@ function fetch() {
 function display(URL) {
     /* First, delete any existing links, with jQuery. */
     $("a").remove();
-    
+
     /* Create a box for the link with the URL as an attribute. */
     var urlBox = document.createElement('a');
     urlBox.setAttribute("id", "urlContainer")
@@ -53,10 +62,12 @@ function generate(baseURL) {
     var langURL = "hl=" + lang;
 
     /* Set to the final url. */
-    var finalURL = baseURL + startURL + queryURL + langURL;
+    var scholarURL = baseURL + startURL + queryURL + langURL;
 
-    /* Fetch a url, and display it in the HTML box. */
-    /* DO THIS LATER. */
+    /* Use that foundational scholarURL to scrape Google Scholar for a
+        random link (later, use citations -> predict good papers). Then
+        update that link to be the final one. */
+    var finalURL = scrape(scholarURL);
 
     /* Finally, display the URL in a new HTML element. */
     display(finalURL);
